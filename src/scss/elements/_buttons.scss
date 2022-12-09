@@ -1,0 +1,23 @@
+.button {
+  padding: 10px;
+  min-width: 200px;
+  background: cornflowerblue;
+  color: white;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  min-height: 40px;
+  cursor: pointer;
+  &.-secondary {
+    background: white;
+    color: cornflowerblue;
+    border: 1px solid cornflowerblue;
+  }
+  &.-big {
+    font-size: 30px;
+    min-height: 60px;
+    min-width: 300px;
+  }
+}

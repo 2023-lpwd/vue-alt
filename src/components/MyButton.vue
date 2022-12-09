@@ -1,14 +1,13 @@
 <script>
 export default {
   props: {
-    text: String,
     link: String,
   },
 };
 </script>
 <template>
-  <a v-if="link" :href="link" class="button">{{ text }}</a>
-  <button v-else class="button">{{ text }}</button>
+  <a v-if="link" :href="link" class="button"><slot></slot></a>
+  <button v-else class="button"><slot></slot></button>
 </template>
 <style lang="scss" scoped>
 .button {
@@ -21,6 +20,7 @@ export default {
   font-size: 1rem;
   font-family: "Arial";
   line-height: 1rem;
+  text-decoration: none;
   &:hover {
     color: $primary-color;
     background: white;

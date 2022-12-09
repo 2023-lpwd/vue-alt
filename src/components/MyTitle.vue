@@ -20,7 +20,7 @@ export default {
 </template>
 <style lang="scss" scoped>
 .title {
-  font-family: $title-font-familly;
+  font-family: $title-font-family;
   font-weight: bold;
   font-size: 32px;
   &.-big {

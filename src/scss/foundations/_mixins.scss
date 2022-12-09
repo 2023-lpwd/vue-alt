@@ -1,0 +1,35 @@
+@mixin title {
+  color: $main-color;
+  font-weight: bold;
+  border-bottom: 2px solid $main-color;
+}
+
+@mixin only-small {
+  @media screen and (max-width: $small) {
+    @content;
+  }
+}
+
+@mixin only-medium {
+  @media screen and (min-width: ($small + 1px)) and (max-width: $large) {
+    @content;
+  }
+}
+
+@mixin medium-up {
+  @media screen and (min-width: ($small + 1px)) {
+    @content;
+  }
+}
+
+@mixin large-up {
+  @media screen and (min-width: ($medium + 1px)) {
+    @content;
+  }
+}
+
+@mixin x-large-up {
+  @media screen and (min-width: ($large + 1px)) {
+    @content;
+  }
+}

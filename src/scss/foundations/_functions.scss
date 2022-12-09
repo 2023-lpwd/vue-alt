@@ -1,0 +1,5 @@
+$total-columns: 12;
+
+@function calculate-width($col) {
+  @return $col / $total-columns * 100%;
+}

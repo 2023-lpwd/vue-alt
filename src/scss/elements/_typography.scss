@@ -1,0 +1,9 @@
+.title {
+  @include title;
+  color: black;
+  font-size: $title-font-size;
+}
+.subtitle {
+  @include title;
+  font-size: $subtitle-font-size;
+}
