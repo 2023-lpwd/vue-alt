@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  width: calc(100% + 40px);
+  margin-right: -20px;
+  margin-left: -20px;
+}
+
+.column {
+  padding: 0 20px;
+}
+
+.column.-size-3 {
+  width: 25%;
+}
+
+.column.-size-4 {
+  width: 33.333%;
+}
+
+.column.-size-6 {
+  width: 50%;
+}
+
+.column.-size-9 {
+  width: 75%;
+}
