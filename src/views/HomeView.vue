@@ -8,11 +8,11 @@
         </li>
       </ul>
       <p style="margin-top: 100px;">Mes produits</p>
-      <ul>
-        <li v-for="(product, index) in products" :key="index">
-          <span>{{ product.name }}</span>
-        </li>
-      </ul>
+      <div class="row">
+        <div class="column -size-3" v-for="(product, index) in products" :key="index">
+          <Product :name="product.name" :price="product.price" :images="product.images" />
+        </div>
+      </div>
       <p style="margin-top: 100px;">Mes categories de produit</p>
       <ul>
         <li v-for="(category, index) in categories">
@@ -24,10 +24,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import { client } from '@/utils/axios'
+import Product from "@/components/Product.vue";
 
 export default {
+  components: { Product },
   data() {
     return {
       posts: [],
