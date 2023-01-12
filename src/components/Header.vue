@@ -4,7 +4,9 @@
       <p class="header__title">titre du site</p>
       <ul class="header__navigation">
         <li class="header__navigation-item" v-for="(category, index) in categories" :key="index">
-          <RouterLink :to="`/category/${category.slug}`">{{ category.name }}</RouterLink>
+          <RouterLink :class="'header__link'" :to="`/category/${category.slug}`">
+            {{ category.name }}
+          </RouterLink>
         </li>
       </ul>
     </div>
@@ -54,8 +56,14 @@ export default {
 
   &__navigation-item {
     &:not(:first-of-type) {
-      margin-left: 10px;
+      margin-left: 20px;
     }
+  }
+
+  &__link {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
   }
 }
 </style>
