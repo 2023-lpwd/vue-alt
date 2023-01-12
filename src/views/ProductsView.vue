@@ -17,7 +17,9 @@
             <label class="products-view__label" for="salon-sejour">Salon/Séjour</label>
           </div>
           <p class="products-view__filter-title">Filtre par prix</p>
-          <input type="range" min="0" max="2000">
+          <input v-model="price" type="range" min="0" max="2000">
+          <br>
+          {{ price }}
         </div>
         <div class="column -size-9">
           <h1 class="products-view__title">Mes produits</h1>
@@ -43,18 +45,23 @@ export default {
   data () {
     return {
       products: [],
-      filters: []
+      filters: [],
+      price: null
     }
   },
 
   computed: {
     filteredProducts () {
       // If no filters selected
-      if (!this.filters.length) return this.products
+      if (!this.filters.length && !this.price) return this.products
 
-      // At least one filter selected
       return this.products.filter((product) => {
+        // At least one filter selected
         return product.categories.find(category => this.filters.includes(category.slug))
+      }).filter((product) => {
+        // Price is not null -> apply price filter
+        if (!this.price) return product
+        return parseInt(product.price) <= parseInt(this.price)
       })
     }
   },
