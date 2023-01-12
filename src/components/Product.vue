@@ -36,7 +36,7 @@ export default {
     width: 100%;
   }
 
-  &__title {
+  &__name {
     font-size: 20px;
     font-weight: 700;
     color: #243b3b;
@@ -44,10 +44,11 @@ export default {
   }
 
   &__price {
-    font-size: 16px;
+    display: inline-block;
+    font-size: 20px;
     font-weight: 500;
-    color: #000;
-    margin-top: 10px;
+    color: $secondary-color;
+    margin-top: 5px;
   }
 }
 </style>

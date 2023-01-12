@@ -20,20 +20,25 @@
         </li>
       </ul>
     </div>
+    <div v-if="page.acf" class="homeview__showroom">
+      <Showroom :title="page.acf.title" :images="page.acf.images" />
+    </div>
   </div>
 </template>
 
 <script>
 import { client } from '@/utils/axios'
 import Product from "@/components/Product.vue";
+import Showroom from "@/components/Showroom.vue";
 
 export default {
-  components: { Product },
-  data() {
+  components: { Showroom, Product },
+  data () {
     return {
       posts: [],
       products: [],
       categories: [],
+      page: {}
     };
   },
 
@@ -51,6 +56,9 @@ export default {
     const categoriesResponse = await client.get("/wc/v3/products/categories")
     this.categories = categoriesResponse.data
 
+    // Get homepage data
+    const homepageResponse = await client.get("/wp/v2/pages/27")
+    this.page = homepageResponse.data
   }
 };
 </script>
