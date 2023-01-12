@@ -1,11 +1,13 @@
 <template>
   <div class="category-view">
-    {{ $route.params }}
+    <div class="container">
+      {{ $route.params }}
 
-    <p style="margin-top: 100px;">Mes produits</p>
-    <div class="row">
-      <div class="column -size-3" v-for="(product, index) in products" :key="index">
-        <Product :name="product.name" :price="product.price" :images="product.images" />
+      <p style="margin-top: 100px;">Mes produits</p>
+      <div class="row">
+        <div class="column -size-3" v-for="(product, index) in products" :key="index">
+          <Product :name="product.name" :price="product.price" :images="product.images" />
+        </div>
       </div>
     </div>
   </div>
