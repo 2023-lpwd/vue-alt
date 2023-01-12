@@ -3,11 +3,16 @@
     <div class="container">
       {{ $route.params }}
 
-      <p style="margin-top: 100px;">Mes produits</p>
-      <div class="row">
-        <div class="column -size-3" v-for="(product, index) in products" :key="index">
-          <Product :name="product.name" :price="product.price" :images="product.images" />
+      <div v-if="products.length" class="category-view__products">
+        <p>Mes produits</p>
+        <div class="row">
+          <div class="column -size-3" v-for="(product, index) in products" :key="index">
+            <Product :name="product.name" :price="product.price" :images="product.images" />
+          </div>
         </div>
+      </div>
+      <div v-else class="category-view__no-products">
+        Aucun produit n'a été trouvé
       </div>
     </div>
   </div>
@@ -28,13 +33,23 @@ export default {
   },
 
   async mounted () {
-    // Get category by slug
-    const categoryResponse = await client.get('/wc/v3/products/categories?slug=' + this.$route.params.category)
-    this.category = categoryResponse.data
+    await this.getCategoryData()
+  },
 
-    // Get products by category
-    const response = await client.get('/wc/v3/products?category=' + this.category[0].id)
-    this.products = response.data
+  async beforeRouteUpdate () {
+    await this.getCategoryData()
+  },
+
+  methods: {
+    async getCategoryData () {
+      // Get category by slug
+      const categoryResponse = await client.get('/wc/v3/products/categories?slug=' + this.$route.params.category)
+      this.category = categoryResponse.data
+
+      // Get products by category
+      const response = await client.get('/wc/v3/products?category=' + this.category[0].id)
+      this.products = response.data
+    }
   }
 }
 </script>
