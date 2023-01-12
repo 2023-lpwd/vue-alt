@@ -1,11 +1,13 @@
 <template>
-  <div class="product-gallery">
+  <div v-if="active" class="product-gallery">
     <!-- Image active -->
-    <div v-if="active" class="product-gallery__active" :style="`background-image: url('${active.src}')`" />
+    <div class="product-gallery__image" :style="`background-image: url('${active.src}')`" />
     <!-- Liste d'images -->
     <div class="product-gallery__list">
       <div class="row">
-        <div v-for="(image, index) in images" class="product-gallery__image | column -size-3" :style="`background-image: url('${image.src}')`" @click="onImageClick(image)" />
+        <div v-for="(image, index) in images" class="column -size-3">
+          <div :class="['product-gallery__image', { '-is-active': active.id === image.id }]" :style="`background-image: url('${image.src}')`" @click="onImageClick(image)" />
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +28,12 @@ export default {
     }
   },
 
+  watch: {
+    images (value) {
+      this.active = value[0]
+    }
+  },
+
   methods: {
     onImageClick (image) {
       this.active = image
@@ -37,21 +45,23 @@ export default {
 <style lang="scss">
 .product-gallery {
 
-  &__active {
-    aspect-ratio: 1;
-    background-size: cover;
-    background-position: center;
-  }
-
   &__list {
     display: flex;
     flex-flow: row wrap;
+    margin-top: 30px;
   }
 
   &__image {
     aspect-ratio: 1;
     background-size: cover;
     background-position: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+
+    &.-is-active {
+      opacity: 0.5;
+    }
   }
 }
 </style>
