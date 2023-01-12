@@ -2,8 +2,8 @@
   <div class="product-view">
     <div class="container">
       <div class="row">
-        <div class="column -size-6">
-          <!-- Galerie d'images -->
+        <div class="product-view__gallery | column -size-6">
+          <ProductGallery :images="product.images" />
         </div>
         <div class="product-view__content | column -size-6">
           <h1 class="product-view__name">{{ product.name }}</h1>
@@ -29,8 +29,10 @@
 
 <script>
 import { client } from "@/utils/axios";
+import ProductGallery from "@/components/ProductGallery.vue";
 
 export default {
+  components: { ProductGallery },
   data () {
     return {
       product: {}
