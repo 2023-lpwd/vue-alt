@@ -1,8 +1,6 @@
 <template>
   <div class="category-view">
     <div class="container">
-      {{ $route.params }}
-
       <div v-if="products.length" class="category-view__products">
         <p>Mes produits</p>
         <div class="row">
@@ -33,17 +31,17 @@ export default {
   },
 
   async mounted () {
-    await this.getCategoryData()
+    await this.getCategoryData(this.$route.params.category)
   },
 
-  async beforeRouteUpdate () {
-    await this.getCategoryData()
+  async beforeRouteUpdate (to, from) {
+    await this.getCategoryData(to.params.category)
   },
 
   methods: {
-    async getCategoryData () {
+    async getCategoryData (categorySlug) {
       // Get category by slug
-      const categoryResponse = await client.get('/wc/v3/products/categories?slug=' + this.$route.params.category)
+      const categoryResponse = await client.get('/wc/v3/products/categories?slug=' + categorySlug)
       this.category = categoryResponse.data
 
       // Get products by category
