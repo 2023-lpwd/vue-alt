@@ -44,6 +44,12 @@ export default {
       const categoryResponse = await client.get('/wc/v3/products/categories?slug=' + categorySlug)
       this.category = categoryResponse.data
 
+      // If no category found
+      if (!this.category.length) {
+        this.$router.push({ path: '/404' })
+        return
+      }
+
       // Get products by category
       const response = await client.get('/wc/v3/products?category=' + this.category[0].id)
       this.products = response.data
