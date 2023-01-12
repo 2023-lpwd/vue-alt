@@ -3,19 +3,21 @@
     <div class="container">
       <div class="row">
         <div class="column -size-3">
-          {{ filters }}
+          <p class="products-view__filter-title">Filtre par pièce</p>
           <div class="products-view__checkbox">
             <input v-model="filters" type="checkbox" id="cuisine" name="cuisine" value="cuisine">
-            <label for="cuisine">Cuisine</label>
+            <label class="products-view__label" for="cuisine">Cuisine</label>
           </div>
           <div class="products-view__checkbox">
             <input v-model="filters" type="checkbox" id="chambre" name="chambre" value="chambre">
-            <label for="chambre">Chambre</label>
+            <label class="products-view__label" for="chambre">Chambre</label>
           </div>
           <div class="products-view__checkbox">
             <input v-model="filters" type="checkbox" id="salon-sejour" name="salon-sejour" value="salon-sejour">
-            <label for="salon-sejour">Salon/Séjour</label>
+            <label class="products-view__label" for="salon-sejour">Salon/Séjour</label>
           </div>
+          <p class="products-view__filter-title">Filtre par prix</p>
+          <input type="range" min="0" max="2000">
         </div>
         <div class="column -size-9">
           <h1 class="products-view__title">Mes produits</h1>
@@ -47,8 +49,12 @@ export default {
 
   computed: {
     filteredProducts () {
+      // If no filters selected
+      if (!this.filters.length) return this.products
+
+      // At least one filter selected
       return this.products.filter((product) => {
-        return product.categories.find(category => category.slug === 'chambre')
+        return product.categories.find(category => this.filters.includes(category.slug))
       })
     }
   },
@@ -68,5 +74,15 @@ export default {
 </script>
 
 <style lang="scss">
+.products-view {
+  &__label {
+    font-size: 16px;
+    font-weight: 500;
+  }
 
+  &__filter-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
 </style>
