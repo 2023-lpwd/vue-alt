@@ -17,15 +17,21 @@ import Product from "@/components/Product.vue";
 
 export default {
   components: { Product },
+
   data () {
     return {
+      category: {},
       products: []
     }
   },
 
   async mounted () {
+    // Get category by slug
+    const categoryResponse = await client.get('/wc/v3/products/categories?slug=' + this.$route.params.category)
+    this.category = categoryResponse.data
+
     // Get products by category
-    const response = await client.get('/wc/v3/products?category=' + this.$route.params.category)
+    const response = await client.get('/wc/v3/products?category=' + this.category[0].id)
     this.products = response.data
   }
 }
