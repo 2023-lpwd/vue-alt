@@ -10,7 +10,7 @@
         </li>
       </ul>
       <div class="header__cart">
-        <RouterLink to="/cart">Panier</RouterLink>
+        <RouterLink to="/cart">Panier ({{ cartCount }})</RouterLink>
       </div>
     </div>
   </div>
@@ -23,6 +23,15 @@ export default {
   data () {
     return {
       categories: []
+    }
+  },
+
+  computed: {
+    cartCount () {
+      return this.$store.state.cart.reduce((total, product) => {
+        total += product.quantity
+        return total
+      }, 0)
     }
   },
 
