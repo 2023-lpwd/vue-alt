@@ -25,10 +25,14 @@
           <h1 class="products-view__title">Mes produits</h1>
           <div class="products-view__list">
             <div class="row">
-              <div class="column -size-3" v-for="(product, index) in filteredProducts" :key="index">
+              <div class="column -size-3" v-for="(product, index) in displayedProducts" :key="index">
                 <Product :name="product.name" :price="product.price" :images="product.images" />
               </div>
             </div>
+          </div>
+          <div class="products-view__pagination">
+            <span class="products-view__pagination-button" @click="onPreviousClick">Page précédente</span>
+            <span class="products-view__pagination-button" @click="onNextClick">Page suivante</span>
           </div>
         </div>
       </div>
@@ -46,11 +50,14 @@ export default {
     return {
       products: [],
       filters: [],
-      price: null
+      price: null,
+      page: 0,
+      byPage: 5
     }
   },
 
   computed: {
+    // Filtered array based on this.products and this.filters
     filteredProducts () {
       // If no filters selected
       if (!this.filters.length && !this.price) return this.products
@@ -63,6 +70,13 @@ export default {
         if (!this.price) return product
         return parseInt(product.price) <= parseInt(this.price)
       })
+    },
+
+    // Sliced array of products based on filteredProducts
+    // Handles pagination
+    displayedProducts () {
+      const nextPage = this.page + 1
+      return this.filteredProducts.slice(this.page * this.byPage, nextPage * this.byPage)
     }
   },
 
@@ -73,8 +87,15 @@ export default {
   },
 
   methods: {
-    onChange ($event) {
-      console.log($event)
+    onPreviousClick () {
+      if (this.page === 0) return
+      this.page = this.page - 1
+    },
+
+    onNextClick () {
+      const pageCount = Math.ceil(this.filteredProducts.length / this.byPage)
+      if (this.page >= pageCount - 1) return
+      this.page = this.page + 1
     }
   }
 };
@@ -90,6 +111,20 @@ export default {
   &__filter-title {
     font-size: 20px;
     font-weight: 700;
+  }
+
+  &__pagination {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 50px 0;
+  }
+
+  &__pagination-button {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
   }
 }
 </style>
