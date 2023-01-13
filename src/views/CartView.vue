@@ -4,7 +4,7 @@
       <h1 class="cart-view__title">Mon panier</h1>
       <div v-if="$store.state.cart.length" class="cart-view__list">
         <div class="cart-view__item" v-for="(product, index) in $store.state.cart" :key="index">
-          <CartProduct :name="product.name" :price="product.price" :images="product.images" :quantity="product.quantity"  />
+          <CartProduct :id="product.id" :name="product.name" :price="product.price" :images="product.images" :quantity="product.quantity"  />
         </div>
         <div class="cart-view__total">Total du panier : {{ cartTotal }}€</div>
       </div>

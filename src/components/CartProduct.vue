@@ -2,7 +2,11 @@
   <div class="cart-product">
     <img v-if="image" class="cart-product__image" :src="image" alt="">
     <p class="cart-product__name">{{ name }}</p>
-    <span class="cart-product__quantity">Quantité : {{ quantity }}</span>
+    <span class="cart-product__quantity">
+      <button @click="onDecreaseQuantity">-</button>
+      Quantité : {{ quantity }}
+      <button @click="onIncreaseQuantity">+</button>
+    </span>
     <span class="cart-product__price">Prix : {{ price }}€</span>
     <span class="cart-product__price -is-total">Total : {{ total }}€</span>
     <span class="cart-product__delete" @click="onDeleteClick">X</span>
@@ -47,6 +51,14 @@ export default {
   },
 
   methods: {
+    onDecreaseQuantity () {
+      this.$store.commit('decreaseQuantity', this.id)
+    },
+
+    onIncreaseQuantity () {
+      this.$store.commit('increaseQuantity', this.id)
+    },
+
     onDeleteClick () {
       this.$store.commit('remove', this.id)
     }
