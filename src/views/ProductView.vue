@@ -44,6 +44,7 @@ export default {
   },
 
   async mounted () {
+    console.log('route', this.$route.params);
     await this.getProductData(this.$route.params.product)
   },
 
@@ -54,7 +55,9 @@ export default {
   methods: {
     // Get WooCommerce product data by slug
     async getProductData (slug) {
+      console.log(slug);
       const response = await client.get('/wc/v3/products?slug=' + slug)
+      console.log(response);
       this.product = response.data[0]
     },
 

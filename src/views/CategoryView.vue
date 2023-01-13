@@ -5,7 +5,8 @@
         <p>Mes produits</p>
         <div class="row">
           <div class="column -size-3" v-for="(product, index) in products" :key="index">
-            <Product :name="product.name" :price="product.price" :images="product.images" />
+            <Product :name="product.name" :slug="product.slug" :price="product.price" :images="product.images" />
+            <!-- <Product v-bind="product" />-->
           </div>
         </div>
       </div>
