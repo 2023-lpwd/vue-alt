@@ -52,11 +52,13 @@ export default {
 
   methods: {
     onDecreaseQuantity () {
-      this.$store.commit('decreaseQuantity', this.id)
+      // this.$store.commit('updateQuantity', 'id-action')
+      // this.$store.commit('updateQuantity', [id, 'action'])
+      this.$store.commit('updateQuantity', { id: this.id, action: 'decrease' })
     },
 
     onIncreaseQuantity () {
-      this.$store.commit('increaseQuantity', this.id)
+      this.$store.commit('updateQuantity', { id: this.id, action: 'increase' })
     },
 
     onDeleteClick () {

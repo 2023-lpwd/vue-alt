@@ -6,6 +6,9 @@ export default createStore({
     cart: []
   },
   mutations: {
+    set (state, products) {
+      state.cart = products
+    },
     add (state, product) {
       const productInState = state.cart.find(stateProduct => stateProduct.id === product.id)
       if (!productInState) {
@@ -15,20 +18,23 @@ export default createStore({
         // If product is already in cart -> increase quantity
         productInState.quantity++
       }
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     remove (state, id) {
       const index = state.cart.findIndex(stateProduct => stateProduct.id === id)
       state.cart.splice(index, 1)
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
-    increaseQuantity (state, id) {
+    updateQuantity (state, { id, action }) {
       const productInState = state.cart.find(stateProduct => stateProduct.id === id)
-      productInState.quantity++
-    },
-    decreaseQuantity (state, id) {
-      const productInState = state.cart.find(stateProduct => stateProduct.id === id)
-      if (productInState.quantity > 1) {
-        productInState.quantity--
+      if (action === 'increase') {
+        productInState.quantity++
+      } else if (action === 'decrease') {
+        if (productInState.quantity > 1) {
+          productInState.quantity--
+        }
       }
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     increment (state, payload = 1) {
       state.count+=payload
