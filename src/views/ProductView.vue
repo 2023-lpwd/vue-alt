@@ -26,9 +26,9 @@
               <MyButton>Ajouter au panier</MyButton>
             </div>
             <div class="product-view__quantity">
-              <div class="product-view__quantity-button">-</div>
+              <div class="product-view__quantity-button" @click="updateQuantity('decrease')">-</div>
               <div class="product-view__quantity-value">{{ quantity }}</div>
-              <div class="product-view__quantity-button">+</div>
+              <div class="product-view__quantity-button" @click="updateQuantity('increase')">+</div>
             </div>
           </div>
         </div>
@@ -67,7 +67,15 @@ export default {
     },
 
     addToCart () {
-      this.$store.commit('add', { ...this.product })
+      this.$store.commit('add', { product: this.product, quantity: this.quantity })
+    },
+
+    updateQuantity (action) {
+      if (action === 'increase') {
+        this.quantity++
+      } else if (action === 'decrease' && this.quantity > 1) {
+        this.quantity--
+      }
     }
   }
 };
