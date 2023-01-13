@@ -5,8 +5,7 @@
         <p>Mes produits</p>
         <div class="row">
           <div class="column -size-3" v-for="(product, index) in products" :key="index">
-            <Product :name="product.name" :slug="product.slug" :price="product.price" :images="product.images" />
-            <!-- <Product v-bind="product" />-->
+             <Product v-bind="setProductData(product)" />
           </div>
         </div>
       </div>
@@ -54,6 +53,17 @@ export default {
       // Get products by category
       const response = await client.get('/wc/v3/products?category=' + this.category[0].id)
       this.products = response.data
+    },
+
+    // Format product data to filter product keys that we pass to <Product /> props
+    setProductData (product) {
+      return {
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        images: product.images
+      }
     }
   }
 }
