@@ -10,7 +10,7 @@
         </li>
       </ul>
       <div class="header__cart">
-        {{ $store.state.count }}
+        <RouterLink to="/cart">Panier</RouterLink>
       </div>
     </div>
   </div>
