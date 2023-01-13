@@ -3,7 +3,8 @@
     <img v-if="image" class="cart-product__image" :src="image" alt="">
     <p class="cart-product__name">{{ name }}</p>
     <span class="cart-product__quantity">Quantité : {{ quantity }}</span>
-    <span class="cart-product__price">{{ price }}€</span>
+    <span class="cart-product__price">Prix : {{ price }}€</span>
+    <span class="cart-product__price -is-total">Total : {{ total }}€</span>
   </div>
 </template>
 
@@ -31,6 +32,9 @@ export default {
   },
 
   computed: {
+    total () {
+      return this.price * this.quantity
+    },
     image () {
       if (!this.images.length) return
       return this.images[0].src
@@ -64,6 +68,10 @@ export default {
     display: inline-block;
     font-size: 18px;
     margin-left: auto;
+
+    &.-is-total {
+      margin-left: 50px;
+    }
   }
 }
 </style>
