@@ -5,13 +5,17 @@
     <span class="cart-product__quantity">Quantité : {{ quantity }}</span>
     <span class="cart-product__price">Prix : {{ price }}€</span>
     <span class="cart-product__price -is-total">Total : {{ total }}€</span>
-    <span class="cart-product__delete">X</span>
+    <span class="cart-product__delete" @click="onDeleteClick">X</span>
   </div>
 </template>
 
 <script>
 export default {
   props: {
+    id: {
+      type: Number,
+      default: null
+    },
     name: {
       type: String
     },
@@ -39,6 +43,12 @@ export default {
     image () {
       if (!this.images.length) return
       return this.images[0].src
+    }
+  },
+
+  methods: {
+    onDeleteClick () {
+      this.$store.commit('remove', this.id)
     }
   }
 };

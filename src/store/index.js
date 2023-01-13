@@ -16,6 +16,10 @@ export default createStore({
         productInState.quantity++
       }
     },
+    remove (state, id) {
+      const index = state.cart.findIndex(stateProduct => stateProduct.id === id)
+      state.cart.splice(index, 1)
+    },
     increment (state, payload = 1) {
       state.count+=payload
     },
