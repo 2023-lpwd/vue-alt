@@ -7,7 +7,14 @@ export default createStore({
   },
   mutations: {
     add (state, product) {
-      state.cart.push(product)
+      const productInState = state.cart.find(stateProduct => stateProduct.id === product.id) // null || { ... }
+      if (!productInState) {
+        // If product not in cart -> add product to cart
+        state.cart.push({ ...product, quantity: 1 })
+      } else {
+        // If product is already in cart -> increase quantity
+        productInState.quantity++
+      }
     },
     increment (state, payload = 1) {
       state.count+=payload

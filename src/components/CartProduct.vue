@@ -2,6 +2,7 @@
   <div class="cart-product">
     <img v-if="image" class="cart-product__image" :src="image" alt="">
     <p class="cart-product__name">{{ name }}</p>
+    <span class="cart-product__quantity">Quantité : {{ quantity }}</span>
     <span class="cart-product__price">{{ price }}€</span>
   </div>
 </template>
@@ -22,6 +23,10 @@ export default {
     images: {
       type: Array,
       default: () => []
+    },
+    quantity: {
+      type: Number,
+      default: null
     }
   },
 
@@ -48,6 +53,10 @@ export default {
   &__name {
     font-size: 20px;
     font-weight: 700;
+    margin-left: 100px;
+  }
+
+  &__quantity {
     margin-left: 100px;
   }
 

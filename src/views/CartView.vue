@@ -3,7 +3,7 @@
     <div class="container">
       <div class="cart-view__list">
         <div class="cart-view__item" v-for="(product, index) in $store.state.cart" :key="index">
-          <CartProduct :name="product.name" :price="product.price" :images="product.images" />
+          <CartProduct :name="product.name" :price="product.price" :images="product.images" :quantity="product.quantity" />
         </div>
       </div>
     </div>
