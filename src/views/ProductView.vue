@@ -59,7 +59,7 @@ export default {
     },
 
     addToCart () {
-      this.$store.commit('add', this.product.slug)
+      this.$store.commit('add', { ...this.product })
     }
   }
 };
