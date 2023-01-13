@@ -21,9 +21,11 @@
             <p class="product-view__subtitle">Description du produit :</p>
             <div class="product-view__description-content" v-html="product.short_description" />
           </div>
-          <div class="product-view__add-to-cart">
+          <div class="product-view__add-to-cart" @click="addToCart">
             <MyButton>Ajouter au panier</MyButton>
+            {{ $store.state.count }}
           </div>
+          <span @click="onMultiplyClick">multiply</span>
         </div>
       </div>
     </div>
@@ -56,6 +58,14 @@ export default {
     async getProductData (slug) {
       const response = await client.get('/wc/v3/products?slug=' + slug)
       this.product = response.data[0]
+    },
+
+    addToCart () {
+      this.$store.commit('increment')
+    },
+
+    onMultiplyClick () {
+      this.$store.commit('multiply')
     }
   }
 };

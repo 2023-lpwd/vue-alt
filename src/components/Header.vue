@@ -9,6 +9,9 @@
           </RouterLink>
         </li>
       </ul>
+      <div class="header__cart">
+        {{ $store.state.count }}
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +67,12 @@ export default {
     font-weight: 700;
     color: white;
     text-decoration: none;
+  }
+
+  &__cart {
+    font-size: 20px;
+    color: white;
+    margin-left: auto;
   }
 }
 </style>
