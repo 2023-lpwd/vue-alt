@@ -5,6 +5,7 @@
     <span class="cart-product__quantity">Quantité : {{ quantity }}</span>
     <span class="cart-product__price">Prix : {{ price }}€</span>
     <span class="cart-product__price -is-total">Total : {{ total }}€</span>
+    <span class="cart-product__delete">X</span>
   </div>
 </template>
 
@@ -71,6 +72,18 @@ export default {
 
     &.-is-total {
       margin-left: 50px;
+    }
+  }
+
+  &__delete {
+    font-size: 25px;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+    margin-left: 100px;
+
+    &:hover {
+      color: red;
     }
   }
 }
