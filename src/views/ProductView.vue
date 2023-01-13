@@ -21,6 +21,9 @@
             <p class="product-view__subtitle">Description du produit :</p>
             <div class="product-view__description-content" v-html="product.short_description" />
           </div>
+          <div class="product-view__add-to-cart">
+            <MyButton>Ajouter au panier</MyButton>
+          </div>
         </div>
       </div>
     </div>
@@ -30,9 +33,10 @@
 <script>
 import { client } from "@/utils/axios";
 import ProductGallery from "@/components/ProductGallery.vue";
+import MyButton from "@/components/MyButton.vue";
 
 export default {
-  components: { ProductGallery },
+  components: { MyButton, ProductGallery },
   data () {
     return {
       product: {}
