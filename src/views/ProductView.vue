@@ -21,8 +21,15 @@
             <p class="product-view__subtitle">Description du produit :</p>
             <div class="product-view__description-content" v-html="product.short_description" />
           </div>
-          <div class="product-view__add-to-cart" @click="addToCart">
-            <MyButton>Ajouter au panier</MyButton>
+          <div class="product-view__actions">
+            <div class="product-view__add-to-cart" @click="addToCart">
+              <MyButton>Ajouter au panier</MyButton>
+            </div>
+            <div class="product-view__quantity">
+              <div class="product-view__quantity-button">-</div>
+              <div class="product-view__quantity-value">{{ quantity }}</div>
+              <div class="product-view__quantity-button">+</div>
+            </div>
           </div>
         </div>
       </div>
@@ -39,7 +46,8 @@ export default {
   components: { MyButton, ProductGallery },
   data () {
     return {
-      product: {}
+      product: {},
+      quantity: 1
     }
   },
 
@@ -92,6 +100,42 @@ export default {
     font-size: 20px;
     font-weight: 700;
     color: $secondary-color;
+  }
+
+  &__actions {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  &__quantity {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  &__quantity-button {
+    padding: 5px 10px;
+    background-color: black;
+    color: white;
+    line-height: 1;
+    font-size: 22px;
+    font-weight: 700;
+    border: 1px solid black;
+    cursor: pointer;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  &__quantity-value {
+    line-height: 1.2;
+    font-size: 18px;
+    padding: 5px 20px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
   }
 
 }
