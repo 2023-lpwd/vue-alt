@@ -52,8 +52,15 @@ export default {
       filters: [],
       price: null,
       page: 0,
-      byPage: 5
+      byPage: 4
     }
+  },
+
+  watch: {
+    // filteredProducts (value) {
+    //   this.page = 0
+    // }
+    'filteredProducts': 'onFilteredProductsChange'
   },
 
   computed: {
@@ -87,15 +94,22 @@ export default {
   },
 
   methods: {
+    // Go to previous page if not first one
     onPreviousClick () {
       if (this.page === 0) return
       this.page = this.page - 1
     },
 
+    // Go to next page if not last one
     onNextClick () {
       const pageCount = Math.ceil(this.filteredProducts.length / this.byPage)
       if (this.page >= pageCount - 1) return
       this.page = this.page + 1
+    },
+
+    // Triggered when this.filteredProducts value changes
+    onFilteredProductsChange () {
+      this.page = 0
     }
   }
 };
