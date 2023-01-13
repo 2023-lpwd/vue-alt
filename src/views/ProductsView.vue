@@ -26,7 +26,7 @@
           <div class="products-view__list">
             <div class="row">
               <div class="column -size-3" v-for="(product, index) in displayedProducts" :key="index">
-                <Product :name="product.name" :price="product.price" :images="product.images" />
+                <Product :name="product.name" :slug="product.slug" :price="product.price" :images="product.images" />
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header__container | container">
-      <p class="header__title">titre du site</p>
+      <p class="header__title"><RouterLink class="header__link" to="/">titre du site</RouterLink></p>
       <ul class="header__navigation">
         <li class="header__navigation-item" v-for="(category, index) in categories" :key="index">
           <RouterLink :class="'header__link'" :to="`/category/${category.slug}`">

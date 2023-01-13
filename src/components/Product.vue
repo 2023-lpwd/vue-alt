@@ -1,8 +1,10 @@
 <template>
   <div class="product">
-    <img v-if="image" class="product__image" :src="image" alt="">
-    <p class="product__name">{{ name }}</p>
-    <span class="product__price">{{ price }}€</span>
+    <RouterLink :class="'product__link'" :to="`/products/${slug}`">
+      <img v-if="image" class="product__image" :src="image" alt="">
+      <p class="product__name">{{ name }}</p>
+      <span class="product__price">{{ price }}€</span>
+    </RouterLink>
   </div>
 </template>
 
@@ -14,6 +16,10 @@ export default {
     },
     price: {
       type: String,
+    },
+    slug: {
+      type: String,
+      default: null
     },
     images: {
       type: Array,
@@ -32,6 +38,10 @@ export default {
 
 <style lang="scss" scoped>
 .product {
+  &__link {
+    text-decoration: none;
+  }
+
   &__image {
     width: 100%;
   }
