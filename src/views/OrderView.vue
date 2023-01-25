@@ -55,7 +55,14 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="country">Pays</label>
-              <input class="order-view__input" id="country" type="text" v-model="billing.country">
+              <select id="country" class="order-view__input" v-model="billing.country">
+                <option value="DE">Allemagne</option>
+                <option value="UK">Royaume-Uni</option>
+                <option value="CH">Suisse</option>
+                <option value="IT">Italie</option>
+                <option value="FR">France</option>
+                <option value="ES">Espagne</option>
+              </select>
             </div>
           </div>
         </div>
@@ -73,6 +80,12 @@
             </div>
           </div>
         </div>
+        <div class="order-view__row || row">
+          <div class="column -size-12">
+            <input type="checkbox" id="other-address" v-model="otherAddress">
+            <label for="other-address">Je souhaite livrer à une autre adresse</label>
+          </div>
+        </div>
         <div @click="confirmInformation">Valider les informations</div>
       </form>
     </div>
@@ -87,6 +100,7 @@ export default {
   components: { MyButton },
   data () {
     return {
+      otherAddress: false,
       billing: {
         first_name: '',
         last_name: '',
