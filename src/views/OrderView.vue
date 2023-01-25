@@ -7,17 +7,31 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="firstname">Prénom</label>
-              <input class="order-view__input" id="firstname" type="text">
+              <input class="order-view__input" id="firstname" type="text" v-model="first_name">
+            </div>
+          </div>
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="lastname">Nom</label>
+              <input class="order-view__input" id="lastname" type="text" v-model="last_name">
             </div>
           </div>
         </div>
+        Le prénom est : {{ first_name }} le nom est {{ last_name }}
       </form>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      first_name: null,
+      last_name: null
+    }
+  }
+}
 </script>
 
 <style lang="scss">
