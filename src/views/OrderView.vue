@@ -17,7 +17,62 @@
             </div>
           </div>
         </div>
-        Le prénom est : {{ first_name }} le nom est {{ last_name }}
+        <div class="order-view__row || row">
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="address_1">Adresse</label>
+              <input class="order-view__input" id="address_1" type="text" v-model="address_1">
+            </div>
+          </div>
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="address_2">Complément d'adresse</label>
+              <input class="order-view__input" id="address_2" type="text" v-model="address_2">
+            </div>
+          </div>
+        </div>
+        <div class="order-view__row || row">
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="city">Ville</label>
+              <input class="order-view__input" id="city" type="text" v-model="city">
+            </div>
+          </div>
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="state">État/Région</label>
+              <input class="order-view__input" id="state" type="text" v-model="state">
+            </div>
+          </div>
+        </div>
+        <div class="order-view__row || row">
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="postcode">Code postal</label>
+              <input class="order-view__input" id="postcode" type="text" v-model="postcode">
+            </div>
+          </div>
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="country">Pays</label>
+              <input class="order-view__input" id="country" type="text" v-model="country">
+            </div>
+          </div>
+        </div>
+        <div class="order-view__row || row">
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="email">Email</label>
+              <input class="order-view__input" id="email" type="text" v-model="email">
+            </div>
+          </div>
+          <div class="column -size-6">
+            <div class="order-view__field">
+              <label class="order-view__label" for="phone">Téléphone</label>
+              <input class="order-view__input" id="phone" type="text" v-model="phone">
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -28,7 +83,15 @@ export default {
   data () {
     return {
       first_name: null,
-      last_name: null
+      last_name: null,
+      address_1: null,
+      address_2: null,
+      city: null,
+      state: null,
+      postcode: null,
+      country: null,
+      email: null,
+      phone: null
     }
   }
 }
@@ -36,6 +99,11 @@ export default {
 
 <style lang="scss">
 .order-view {
+
+  &__row {
+    margin-top: 30px;
+  }
+
   &__field {
     display: flex;
     flex-flow: column wrap;
