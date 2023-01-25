@@ -2,7 +2,7 @@
   <div class="order-view">
     <div class="container">
       <h1>Valider ma commande</h1>
-      <form action="" class="order-view__form">
+      <form action="" class="order-view__form" @submit="onSubmit">
         <div class="order-view__row || row">
           <div class="column -size-6">
             <div class="order-view__field">
@@ -152,7 +152,7 @@
           </div>
         </div>
         <!--  -->
-        <div @click="confirmInformation">Valider les informations</div>
+        <MyButton @click="confirmInformation">Valider les informations</MyButton>
       </form>
     </div>
   </div>
@@ -223,6 +223,10 @@ export default {
         console.log(err)
       }
 
+    },
+
+    onSubmit ($event) {
+      $event.preventDefault()
     }
   }
 }
