@@ -193,28 +193,36 @@ export default {
   },
 
   methods: {
-    confirmInformation () {
+    async confirmInformation () {
       const line_items = this.$store.state.cart.map(product => {
         return {
           product_id: product.id,
           quantity: product.quantity
         }
       })
-      const response = client.post('/wc/v3/orders', {
-        payment_method: "bacs",
-        payment_method_title: "Direct Bank Transfer",
-        set_paid: true,
-        billing: this.billing,
-        shipping: this.otherAddress ? this.shipping : this.billing,
-        line_items: line_items,
-        shipping_lines: [
-          {
-            method_id: "flat_rate",
-            method_title: "Flat Rate",
-            total: "10.00"
-          }
-        ]
-      })
+
+      // Try catch block will capture any error that occurs in the try {} part
+      try {
+        const response = await client.post('/wc/v3/orders', {
+          payment_method: "bacs",
+          payment_method_title: "Direct Bank Transfer",
+          set_paid: true,
+          billing: this.billing,
+          shipping: this.otherAddress ? this.shipping : this.billing,
+          line_items: line_items,
+          shipping_lines: [
+            {
+              method_id: "flat_rate",
+              method_title: "Flat Rate",
+              total: "10.00"
+            }
+          ]
+        })
+        this.$store.commit('emptyCart')
+      } catch (err) {
+        console.log(err)
+      }
+
     }
   }
 }

@@ -36,6 +36,10 @@ export default createStore({
       }
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
+    emptyCart (state) {
+      state.cart = []
+      localStorage.setItem('cart', JSON.stringify(state.cart))
+    },
     increment (state, payload = 1) {
       state.count+=payload
     },
