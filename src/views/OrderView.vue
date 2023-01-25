@@ -63,7 +63,7 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="email">Email</label>
-              <input class="order-view__input" id="email" type="text" v-model="billing.email">
+              <input class="order-view__input" id="email" type="email" v-model="billing.email">
             </div>
           </div>
           <div class="column -size-6">
