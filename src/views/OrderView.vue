@@ -194,18 +194,19 @@ export default {
 
   methods: {
     confirmInformation () {
+      const line_items = this.$store.state.cart.map(product => {
+        return {
+          product_id: product.id,
+          quantity: product.quantity
+        }
+      })
       const response = client.post('/wc/v3/orders', {
         payment_method: "bacs",
         payment_method_title: "Direct Bank Transfer",
         set_paid: true,
         billing: this.billing,
-        shipping: this.billing,
-        line_items: [
-          {
-            product_id: 57,
-            quantity: 2
-          }
-        ],
+        shipping: this.otherAddress ? this.shipping : this.billing,
+        line_items: line_items,
         shipping_lines: [
           {
             method_id: "flat_rate",
