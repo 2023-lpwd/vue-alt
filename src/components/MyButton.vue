@@ -2,6 +2,7 @@
 export default {
   props: {
     link: String,
+    default: null
   },
 };
 </script>

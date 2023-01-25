@@ -73,7 +73,7 @@
             </div>
           </div>
         </div>
-        <MyButton @click="confirmInformation">Valider les informations</MyButton>
+        <div @click="confirmInformation">Valider les informations</div>
       </form>
     </div>
   </div>
@@ -88,16 +88,16 @@ export default {
   data () {
     return {
       billing: {
-        first_name: null,
-        last_name: null,
-        address_1: null,
-        address_2: null,
-        city: null,
-        state: null,
-        postcode: null,
-        country: null,
-        email: null,
-        phone: null
+        first_name: '',
+        last_name: '',
+        address_1: '',
+        address_2: '',
+        city: '',
+        state: '',
+        postcode: '',
+        country: '',
+        email: '',
+        phone: ''
       }
     }
   },
@@ -108,7 +108,21 @@ export default {
         payment_method: "bacs",
         payment_method_title: "Direct Bank Transfer",
         set_paid: true,
-        billing: this.billing
+        billing: this.billing,
+        shipping: this.billing,
+        line_items: [
+          {
+            product_id: 57,
+            quantity: 2
+          }
+        ],
+        shipping_lines: [
+          {
+            method_id: "flat_rate",
+            method_title: "Flat Rate",
+            total: "10.00"
+          }
+        ]
       })
     }
   }
