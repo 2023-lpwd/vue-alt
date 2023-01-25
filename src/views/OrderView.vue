@@ -7,13 +7,13 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="firstname">Prénom</label>
-              <input class="order-view__input" id="firstname" type="text" v-model="first_name">
+              <input class="order-view__input" id="firstname" type="text" v-model="billing.first_name">
             </div>
           </div>
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="lastname">Nom</label>
-              <input class="order-view__input" id="lastname" type="text" v-model="last_name">
+              <input class="order-view__input" id="lastname" type="text" v-model="billing.last_name">
             </div>
           </div>
         </div>
@@ -21,13 +21,13 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="address_1">Adresse</label>
-              <input class="order-view__input" id="address_1" type="text" v-model="address_1">
+              <input class="order-view__input" id="address_1" type="text" v-model="billing.address_1">
             </div>
           </div>
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="address_2">Complément d'adresse</label>
-              <input class="order-view__input" id="address_2" type="text" v-model="address_2">
+              <input class="order-view__input" id="address_2" type="text" v-model="billing.address_2">
             </div>
           </div>
         </div>
@@ -35,13 +35,13 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="city">Ville</label>
-              <input class="order-view__input" id="city" type="text" v-model="city">
+              <input class="order-view__input" id="city" type="text" v-model="billing.city">
             </div>
           </div>
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="state">État/Région</label>
-              <input class="order-view__input" id="state" type="text" v-model="state">
+              <input class="order-view__input" id="state" type="text" v-model="billing.state">
             </div>
           </div>
         </div>
@@ -49,13 +49,13 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="postcode">Code postal</label>
-              <input class="order-view__input" id="postcode" type="text" v-model="postcode">
+              <input class="order-view__input" id="postcode" type="text" v-model="billing.postcode">
             </div>
           </div>
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="country">Pays</label>
-              <input class="order-view__input" id="country" type="text" v-model="country">
+              <input class="order-view__input" id="country" type="text" v-model="billing.country">
             </div>
           </div>
         </div>
@@ -63,35 +63,53 @@
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="email">Email</label>
-              <input class="order-view__input" id="email" type="text" v-model="email">
+              <input class="order-view__input" id="email" type="text" v-model="billing.email">
             </div>
           </div>
           <div class="column -size-6">
             <div class="order-view__field">
               <label class="order-view__label" for="phone">Téléphone</label>
-              <input class="order-view__input" id="phone" type="text" v-model="phone">
+              <input class="order-view__input" id="phone" type="text" v-model="billing.phone">
             </div>
           </div>
         </div>
+        <MyButton @click="confirmInformation">Valider les informations</MyButton>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import MyButton from "@/components/MyButton.vue";
+import { client } from "@/utils/axios";
+
 export default {
+  components: { MyButton },
   data () {
     return {
-      first_name: null,
-      last_name: null,
-      address_1: null,
-      address_2: null,
-      city: null,
-      state: null,
-      postcode: null,
-      country: null,
-      email: null,
-      phone: null
+      billing: {
+        first_name: null,
+        last_name: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        postcode: null,
+        country: null,
+        email: null,
+        phone: null
+      }
+    }
+  },
+
+  methods: {
+    confirmInformation () {
+      const response = client.post('/wc/v3/orders', {
+        payment_method: "bacs",
+        payment_method_title: "Direct Bank Transfer",
+        set_paid: true,
+        billing: this.billing
+      })
     }
   }
 }
