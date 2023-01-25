@@ -28,6 +28,7 @@ export default {
 
   computed: {
     cartCount () {
+      if (!this.$store.state.cart) return
       return this.$store.state.cart.reduce((total, product) => {
         total += product.quantity
         return total

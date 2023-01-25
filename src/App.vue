@@ -9,6 +9,7 @@ export default {
 
   mounted () {
     const stringifiedCart = localStorage.getItem('cart')
+    if (!stringifiedCart) localStorage.setItem('cart', JSON.stringify([]))
     this.$store.commit('set', JSON.parse(stringifiedCart))
   }
 }
