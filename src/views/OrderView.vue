@@ -86,6 +86,72 @@
             <label for="other-address">Je souhaite livrer à une autre adresse</label>
           </div>
         </div>
+        <div class="order-view__shipping" v-if="otherAddress">
+          <div class="order-view__row || row">
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-firstname">Prénom</label>
+                <input class="order-view__input" id="shipping-firstname" type="text" v-model="shipping.first_name">
+              </div>
+            </div>
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-lastname">Nom</label>
+                <input class="order-view__input" id="shipping-lastname" type="text" v-model="shipping.last_name">
+              </div>
+            </div>
+          </div>
+          <div class="order-view__row || row">
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-address_1">Adresse</label>
+                <input class="order-view__input" id="shipping-address_1" type="text" v-model="shipping.address_1">
+              </div>
+            </div>
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-address_2">Complément d'adresse</label>
+                <input class="order-view__input" id="shipping-address_2" type="text" v-model="shipping.address_2">
+              </div>
+            </div>
+          </div>
+          <div class="order-view__row || row">
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-city">Ville</label>
+                <input class="order-view__input" id="shipping-city" type="text" v-model="shipping.city">
+              </div>
+            </div>
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-state">État/Région</label>
+                <input class="order-view__input" id="shipping-state" type="text" v-model="shipping.state">
+              </div>
+            </div>
+          </div>
+          <div class="order-view__row || row">
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-postcode">Code postal</label>
+                <input class="order-view__input" id="shipping-postcode" type="text" v-model="shipping.postcode">
+              </div>
+            </div>
+            <div class="column -size-6">
+              <div class="order-view__field">
+                <label class="order-view__label" for="shipping-country">Pays</label>
+                <select id="country" class="order-view__input" v-model="shipping.country">
+                  <option value="DE">Allemagne</option>
+                  <option value="UK">Royaume-Uni</option>
+                  <option value="CH">Suisse</option>
+                  <option value="IT">Italie</option>
+                  <option value="FR">France</option>
+                  <option value="ES">Espagne</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
         <div @click="confirmInformation">Valider les informations</div>
       </form>
     </div>
@@ -112,6 +178,16 @@ export default {
         country: '',
         email: '',
         phone: ''
+      },
+      shipping: {
+        first_name: '',
+        last_name: '',
+        address_1: '',
+        address_2: '',
+        city: '',
+        state: '',
+        postcode: '',
+        country: '',
       }
     }
   },
