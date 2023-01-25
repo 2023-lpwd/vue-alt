@@ -7,6 +7,9 @@
           <CartProduct :id="product.id" :name="product.name" :price="product.price" :images="product.images" :quantity="product.quantity"  />
         </div>
         <div class="cart-view__total">Total du panier : {{ cartTotal }}€</div>
+        <div class="cart-view__validate">
+          <MyButton :link="'/cart/order'">Valider le panier</MyButton>
+        </div>
       </div>
       <div v-else>
         Le panier est vide
@@ -17,9 +20,10 @@
 
 <script>
 import CartProduct from "@/components/CartProduct.vue";
+import MyButton from "@/components/MyButton.vue";
 
 export default {
-  components: { CartProduct },
+  components: { MyButton, CartProduct },
 
   computed: {
     cartTotal () {
