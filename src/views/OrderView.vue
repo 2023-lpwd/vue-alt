@@ -224,7 +224,8 @@ export default {
       loading: false,
       step: 2,
       validation: {
-        email: true
+        email: true,
+        number: true
       },
       // type success || error
       feedback: { type: null, message: null },
@@ -260,7 +261,8 @@ export default {
 
   methods: {
     testPayment () {
-
+      /\(|\)|\d{16}$/.test(this.payment.number)
+      // equals to this.payment.number.length === 16 && /^[0-9]*$/.test(this.payment.number)
     },
 
 
