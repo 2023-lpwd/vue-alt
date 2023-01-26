@@ -75,6 +75,7 @@
                   <div class="order-view__field">
                     <label class="order-view__label" for="email">Email</label>
                     <input class="order-view__input" id="email" type="email" v-model="billing.email">
+                    <span v-if="!validation.email" class="order-view__error">Veuillez saisir un email valide</span>
                   </div>
                 </div>
                 <div class="column -size-6">
@@ -198,6 +199,9 @@ export default {
       otherAddress: false,
       loading: false,
       step: 1,
+      validation: {
+        email: true
+      },
       // type success || error
       feedback: { type: null, message: null },
       billing: {
@@ -267,10 +271,11 @@ export default {
 
     changeStep (step) {
       if (step === 2) {
-        // Email non nul ET email valide type 'demo@demo.demo' (RegExp)
+        // Email not null AND valid email matching pattern 'demo@demo.fr' (RegExp)
+        this.validation.email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.billing.email)
+        if (this.validation.email) this.step = step
       }
 
-      this.step = step
     },
 
     onSubmit ($event) {
@@ -300,6 +305,11 @@ export default {
   &__input {
     padding: 10px;
     margin-top: 10px;
+  }
+
+  &__error {
+    margin-top: 5px;
+    color: red;
   }
 
   &__feedback {
