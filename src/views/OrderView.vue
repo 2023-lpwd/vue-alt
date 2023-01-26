@@ -156,7 +156,8 @@
               </div>
             </div>
             <!--  -->
-            <MyButton @click="confirmInformation">Valider les informations</MyButton>
+            <Loader v-if="loading" />
+            <MyButton v-else @click="confirmInformation">Valider les informations</MyButton>
           </form>
         </div>
         <div class="column -size-4">
@@ -176,12 +177,14 @@
 import MyButton from "@/components/MyButton.vue";
 import { client } from "@/utils/axios";
 import CartProduct from "@/components/CartProduct.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
-  components: { CartProduct, MyButton },
+  components: { Loader, CartProduct, MyButton },
   data () {
     return {
       otherAddress: false,
+      loading: false,
       billing: {
         first_name: '',
         last_name: '',
@@ -209,6 +212,7 @@ export default {
 
   methods: {
     async confirmInformation () {
+      this.loading = true
       const line_items = this.$store.state.cart.map(product => {
         return {
           product_id: product.id,
@@ -233,11 +237,14 @@ export default {
             }
           ]
         })
+        // Request has succeeded
         this.$store.commit('emptyCart')
+        this.loading = false
       } catch (err) {
+        // Request has failed
+        this.loading = false
         console.log(err)
       }
-
     },
 
     onSubmit ($event) {
