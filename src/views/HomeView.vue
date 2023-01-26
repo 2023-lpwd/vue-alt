@@ -9,7 +9,7 @@
       </ul>
       <p style="margin-top: 100px;">Mes produits</p>
       <div class="row">
-        <div class="column -size-3" v-for="(product, index) in products" :key="index">
+        <div class="column -size-3 -size-4-md" v-for="(product, index) in products" :key="index">
           <Product :name="product.name" :slug="product.slug" :price="product.price" :images="product.images" />
         </div>
       </div>

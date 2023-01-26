@@ -1,7 +1,12 @@
 .container {
   width: 100%;
   max-width: 1140px;
+  padding: 0 50px;
   margin: 0 auto;
+
+  @media screen and (min-width: 1024px) {
+    padding: 0 150px;
+  }
 }
 
 .row {
@@ -18,7 +23,27 @@
 
 // Loop for grid column size classes
 @for $i from 1 through 12 {
-  .column.-size-#{$i} {
-    width: calc(100% * calc($i / 12))
+  .column.-size-#{$i}-md {
+    @media screen and (min-width: 768px) {
+      width: calc(100% * calc($i / 12))
+    }
   }
 }
+
+// Loop for grid column size classes
+@for $i from 1 through 12 {
+  .column.-size-#{$i} {
+    @media screen and (min-width: 1024px) {
+      width: calc(100% * calc($i / 12))
+    }
+  }
+}
+// Loop for grid column size classes
+@for $i from 1 through 12 {
+  .column.-size-#{$i}-lg {
+    @media screen and (min-width: 1280px) {
+      width: calc(100% * calc($i / 12))
+    }
+  }
+}
+
