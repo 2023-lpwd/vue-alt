@@ -1,18 +1,18 @@
 <template>
   <div class="confirmation-view">
     <div class="container">
-      <h1>Merci pour votre commande [firstname] [lastname] !</h1>
+      <h1>Merci pour votre commande {{ order.billing.first_name }} {{ order.billing.last_name }} !</h1>
 
       <p>Récapitulatif de votre commande</p>
       <ul>
-        <li>[produit 1] : [prix]</li>
-        <li>[produit 2] : [prix]</li>
+        <li v-for="(product, index) in order.line_items">
+          {{ product.name }} : {{ product.price }}€ - x{{ product.quantity }}
+        </li>
       </ul>
 
       <p>
-        Vous serez bientôt averti de l'expédition de vos produits, la livraison est prévue dans les 3 jours ouvrés à l'adresse [adresse]
+        Vous serez bientôt averti de l'expédition de vos produits, la livraison est prévue dans les 3 jours ouvrés à l'adresse {{ order.shipping.address_1 }} {{ order.shipping.address_2 }} à {{ order.shipping.city }}
       </p>
-      {{ order }}
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ export default {
   },
   created () {
     this.order = JSON.parse(localStorage.getItem('order'))
+    console.log(this.order);
   }
 }
 </script>
