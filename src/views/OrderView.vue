@@ -183,16 +183,13 @@
                   <div class="order-view__field">
                     <label class="order-view__label" for="expiration">Date d'expiration</label>
                     <input class="order-view__input" id="expiration" type="date" :min="dates.min" :max="dates.max" v-model="payment.date">
-                    <span v-if="!validation.date" class="order-view__error">Veuillez saisir une date valide</span>
                   </div>
                 </div>
               </div>
-
-
               <Loader v-if="loading" />
               <div v-else class="order-view__buttons">
                 <MyButton @click="step--">Retour</MyButton>
-                <MyButton @click="testPayment">Valider ma commande</MyButton>
+                <MyButton @click="confirmInformation">Valider ma commande</MyButton>
               </div>
               <p v-if="feedback.message" :class="['order-view__feedback', `-is-type-${feedback.type}`]">
                 {{ feedback.message }}
@@ -229,8 +226,7 @@ export default {
       validation: {
         email: true,
         number: true,
-        cvv: true,
-        date: true
+        cvv: true
       },
       // type success || error
       feedback: { type: null, message: null },
@@ -282,10 +278,11 @@ export default {
       // equals to this.payment.number.length === 16 && /^[0-9]*$/.test(this.payment.number)
       this.validation.cvv = /\(|\)|\d{3}$/.test(this.payment.cvv)
       // equals to this.payment.cvv.length === 3 && /^[0-9]*$/.test(this.payment.cvv)
+      return this.validation.number && this.validation.cvv
     },
 
-
     async confirmInformation () {
+      if (!this.testPayment()) return
       this.loading = true
       this.feedback = { type: null, message: null }
       const line_items = this.$store.state.cart.map(product => {
