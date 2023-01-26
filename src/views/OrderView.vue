@@ -5,6 +5,7 @@
       <div class="row">
         <div class="column -size-8">
           <form action="" class="order-view__form" @submit="onSubmit">
+            <h2>Informations de facturation</h2>
             <div class="order-view__row || row">
               <div class="column -size-6">
                 <div class="order-view__field">
@@ -89,6 +90,7 @@
               </div>
             </div>
             <div class="order-view__shipping" v-if="otherAddress">
+              <h2>Informations de livraison</h2>
               <div class="order-view__row || row">
                 <div class="column -size-6">
                   <div class="order-view__field">
