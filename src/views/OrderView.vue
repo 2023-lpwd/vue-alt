@@ -167,6 +167,7 @@
                   <div class="order-view__field">
                     <label class="order-view__label" for="card-number">Numéro de carte</label>
                     <input class="order-view__input" type="text" id="card-number" v-model="payment.number">
+                    <span v-if="!validation.number" class="order-view__error">Veuillez saisir un numéro de carte valide</span>
                   </div>
                 </div>
               </div>
@@ -175,12 +176,14 @@
                   <div class="order-view__field">
                     <label class="order-view__label" for="CVV">CVV</label>
                     <input class="order-view__input" id="CVV" type="text" v-model="payment.cvv">
+                    <span v-if="!validation.cvv" class="order-view__error">Veuillez saisir CVV valide</span>
                   </div>
                 </div>
                 <div class="column -size-6">
                   <div class="order-view__field">
                     <label class="order-view__label" for="expiration">Date d'expiration</label>
-                    <input class="order-view__input" id="expiration" type="text" v-model="payment.date">
+                    <input class="order-view__input" id="expiration" type="date" :min="dates.min" :max="dates.max" v-model="payment.date">
+                    <span v-if="!validation.date" class="order-view__error">Veuillez saisir une date valide</span>
                   </div>
                 </div>
               </div>
@@ -225,7 +228,9 @@ export default {
       step: 2,
       validation: {
         email: true,
-        number: true
+        number: true,
+        cvv: true,
+        date: true
       },
       // type success || error
       feedback: { type: null, message: null },
@@ -259,10 +264,24 @@ export default {
     }
   },
 
+  computed: {
+    dates () {
+      const now = new Date()
+      const in3years = new Date(new Date().setFullYear(new Date().getFullYear() + 3))
+
+      return {
+        min: now.toISOString().split('T')[0],
+        max: in3years.toISOString().split('T')[0]
+      }
+    }
+  },
+
   methods: {
     testPayment () {
-      /\(|\)|\d{16}$/.test(this.payment.number)
+      this.validation.number = /\(|\)|\d{16}$/.test(this.payment.number)
       // equals to this.payment.number.length === 16 && /^[0-9]*$/.test(this.payment.number)
+      this.validation.cvv = /\(|\)|\d{3}$/.test(this.payment.cvv)
+      // equals to this.payment.cvv.length === 3 && /^[0-9]*$/.test(this.payment.cvv)
     },
 
 
