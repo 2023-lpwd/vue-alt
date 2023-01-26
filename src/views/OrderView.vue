@@ -158,6 +158,9 @@
             <!--  -->
             <Loader v-if="loading" />
             <MyButton v-else @click="confirmInformation">Valider les informations</MyButton>
+            <p v-if="feedback.message" class="order-view__feedback">
+              {{ feedback.message }}
+            </p>
           </form>
         </div>
         <div class="column -size-4">
@@ -185,6 +188,8 @@ export default {
     return {
       otherAddress: false,
       loading: false,
+      // type success || error
+      feedback: { type: null, message: null },
       billing: {
         first_name: '',
         last_name: '',
@@ -213,6 +218,7 @@ export default {
   methods: {
     async confirmInformation () {
       this.loading = true
+      this.feedback = { type: null, message: null }
       const line_items = this.$store.state.cart.map(product => {
         return {
           product_id: product.id,
@@ -240,9 +246,11 @@ export default {
         // Request has succeeded
         this.$store.commit('emptyCart')
         this.loading = false
+        this.feedback = { type: 'success', message: 'Votre commande a bien été enregistrée' }
       } catch (err) {
         // Request has failed
         this.loading = false
+        this.feedback = { type: 'error', message: 'Désolé, une erreur est survenue' }
         console.log(err)
       }
     },
