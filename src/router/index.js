@@ -33,6 +33,12 @@ const router = createRouter({
       component: () => import('../views/OrderView.vue')
     },
     {
+      path: '/cart/order/thank-you',
+      name: 'cart-order-thank-you',
+      component: () => import('../views/ConfirmationView.vue'),
+      props: true
+    },
+    {
       path: '/category/:category',
       name: 'category-category',
       component: () => import('../views/CategoryView.vue')
