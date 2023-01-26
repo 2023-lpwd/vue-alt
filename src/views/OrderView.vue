@@ -5,7 +5,7 @@
       <div class="row">
         <div class="column -size-8">
           <form action="" class="order-view__form" @submit="onSubmit">
-            <div class="order-view__step">
+            <div v-if="step === 1" class="order-view__step">
               <h2>Informations de facturation</h2>
               <div class="order-view__row || row">
                 <div class="column -size-6">
@@ -157,12 +157,15 @@
                 </div>
               </div>
               <!--  -->
-              <MyButton>Étape suivante</MyButton>
+              <MyButton @click="step++">Étape suivante</MyButton>
             </div>
-            <div class="order-view__step">
+            <div v-if="step === 2" class="order-view__step">
               <h2>Information de paiement</h2>
               <Loader v-if="loading" />
-              <MyButton v-else @click="confirmInformation">Valider ma commande</MyButton>
+              <div v-else class="order-view__buttons">
+                <MyButton @click="step--">Retour</MyButton>
+                <MyButton @click="confirmInformation">Valider ma commande</MyButton>
+              </div>
               <p v-if="feedback.message" :class="['order-view__feedback', `-is-type-${feedback.type}`]">
                 {{ feedback.message }}
               </p>
