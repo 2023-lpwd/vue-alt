@@ -162,6 +162,30 @@
             </div>
             <div v-if="step === 2" class="order-view__step">
               <h2>Information de paiement</h2>
+              <div class="order-view__row || row">
+                <div class="column -size-12">
+                  <div class="order-view__field">
+                    <label class="order-view__label" for="card-number">Numéro de carte</label>
+                    <input class="order-view__input" type="text" id="card-number" v-model="otherAddress">
+                  </div>
+                </div>
+              </div>
+              <div class="order-view__row || row">
+                <div class="column -size-6">
+                  <div class="order-view__field">
+                    <label class="order-view__label" for="CVV">CVV</label>
+                    <input class="order-view__input" id="CVV" type="text" v-model="billing.address_1">
+                  </div>
+                </div>
+                <div class="column -size-6">
+                  <div class="order-view__field">
+                    <label class="order-view__label" for="expiration">Date d'expiration</label>
+                    <input class="order-view__input" id="expiration" type="text" v-model="billing.address_2">
+                  </div>
+                </div>
+              </div>
+
+
               <Loader v-if="loading" />
               <div v-else class="order-view__buttons">
                 <MyButton @click="step--">Retour</MyButton>
