@@ -1,11 +1,11 @@
 <template>
-  <div class="cart-product">
+  <div :class="['cart-product', `-is-layout-${layout}`]">
     <img v-if="image" class="cart-product__image" :src="image" alt="">
     <p class="cart-product__name">{{ name }}</p>
     <span class="cart-product__quantity">
-      <button @click="onDecreaseQuantity">-</button>
+      <button class="cart-product__button" @click="onDecreaseQuantity">-</button>
       Quantité : {{ quantity }}
-      <button @click="onIncreaseQuantity">+</button>
+      <button class="cart-product__button" @click="onIncreaseQuantity">+</button>
     </span>
     <span class="cart-product__price">Prix : {{ price }}€</span>
     <span class="cart-product__price -is-total">Total : {{ total }}€</span>
@@ -80,7 +80,15 @@ export default {
 .cart-product {
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
+  justify-content: space-between;
+
+  &.-is-layout-cart {
+    align-items: center;
+  }
+
+  &.-is-layout-order {
+    flex-flow: column wrap;
+  }
 
   &__image {
     width: 200px;
@@ -90,21 +98,17 @@ export default {
   &__name {
     font-size: 20px;
     font-weight: 700;
-    margin-left: 100px;
   }
 
-  &__quantity {
-    margin-left: 100px;
+  &__button {
+    .-is-layout-order & {
+      display: none;
+    }
   }
 
   &__price {
     display: inline-block;
     font-size: 18px;
-    margin-left: auto;
-
-    &.-is-total {
-      margin-left: 50px;
-    }
   }
 
   &__delete {
@@ -112,10 +116,13 @@ export default {
     font-weight: 700;
     color: black;
     cursor: pointer;
-    margin-left: 100px;
 
     &:hover {
       color: red;
+    }
+
+    .-is-layout-order & {
+      display: none;
     }
   }
 }
