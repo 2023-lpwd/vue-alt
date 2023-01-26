@@ -35,8 +35,7 @@ const router = createRouter({
     {
       path: '/cart/order/thank-you',
       name: 'cart-order-thank-you',
-      component: () => import('../views/ConfirmationView.vue'),
-      props: true
+      component: () => import('../views/ConfirmationView.vue')
     },
     {
       path: '/category/:category',
