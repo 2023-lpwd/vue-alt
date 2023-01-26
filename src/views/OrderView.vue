@@ -222,7 +222,7 @@ export default {
     return {
       otherAddress: false,
       loading: false,
-      step: 2,
+      step: 1,
       validation: {
         email: true,
         number: true,
