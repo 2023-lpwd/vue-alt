@@ -16,22 +16,9 @@
   padding: 0 20px;
 }
 
-.column.-size-3 {
-  width: 25%;
-}
-
-.column.-size-4 {
-  width: 33.333%;
-}
-
-.column.-size-6 {
-  width: 50%;
-}
-
-.column.-size-8 {
-  width: 66.666%;
-}
-
-.column.-size-9 {
-  width: 75%;
+// Loop for grid column size classes
+@for $i from 1 through 12 {
+  .column.-size-#{$i} {
+    width: calc(100% * calc($i / 12))
+  }
 }
