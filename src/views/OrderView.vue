@@ -157,7 +157,7 @@
                 </div>
               </div>
               <!--  -->
-              <MyButton @click="step++">Étape suivante</MyButton>
+              <MyButton @click="changeStep(2)">Étape suivante</MyButton>
             </div>
             <div v-if="step === 2" class="order-view__step">
               <h2>Information de paiement</h2>
@@ -263,6 +263,14 @@ export default {
         this.feedback = { type: 'error', message: 'Désolé, une erreur est survenue' }
         console.log(err)
       }
+    },
+
+    changeStep (step) {
+      if (step === 2) {
+        // Email non nul ET email valide type 'demo@demo.demo' (RegExp)
+      }
+
+      this.step = step
     },
 
     onSubmit ($event) {
