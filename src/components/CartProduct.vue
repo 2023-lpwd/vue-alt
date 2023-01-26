@@ -37,6 +37,14 @@ export default {
     quantity: {
       type: Number,
       default: null
+    },
+    layout: {
+      type: String,
+      default: 'cart',
+      validator: (layout) => {
+        return ['cart', 'order'].includes(layout)
+        // return layout === 'cart' || layout === 'order'
+      }
     }
   },
 
