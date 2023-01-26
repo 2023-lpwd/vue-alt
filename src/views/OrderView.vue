@@ -158,7 +158,7 @@
             <!--  -->
             <Loader v-if="loading" />
             <MyButton v-else @click="confirmInformation">Valider les informations</MyButton>
-            <p v-if="feedback.message" class="order-view__feedback">
+            <p v-if="feedback.message" :class="['order-view__feedback', `-is-type-${feedback.type}`]">
               {{ feedback.message }}
             </p>
           </form>
@@ -282,6 +282,19 @@ export default {
   &__input {
     padding: 10px;
     margin-top: 10px;
+  }
+
+  &__feedback {
+    font-size: 20px;
+    font-weight: 700;
+
+    &.-is-type-success {
+      color: #243b3b;
+    }
+
+    &.-is-type-error {
+      color: #f34242;
+    }
   }
 }
 </style>
