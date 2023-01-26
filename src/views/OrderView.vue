@@ -309,12 +309,12 @@ export default {
             }
           ]
         })
-        console.log(response);
         // Request has succeeded
         this.$store.commit('emptyCart')
         this.loading = false
         this.feedback = { type: 'success', message: 'Votre commande a bien été enregistrée' }
-
+        localStorage.setItem('order', JSON.stringify(response.data))
+        this.$router.push({ name: 'cart-order-thank-you' })
       } catch (err) {
         // Request has failed
         this.loading = false
