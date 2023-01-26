@@ -166,7 +166,7 @@
                 <div class="column -size-12">
                   <div class="order-view__field">
                     <label class="order-view__label" for="card-number">Numéro de carte</label>
-                    <input class="order-view__input" type="text" id="card-number" v-model="otherAddress">
+                    <input class="order-view__input" type="text" id="card-number" v-model="payment.number">
                   </div>
                 </div>
               </div>
@@ -174,13 +174,13 @@
                 <div class="column -size-6">
                   <div class="order-view__field">
                     <label class="order-view__label" for="CVV">CVV</label>
-                    <input class="order-view__input" id="CVV" type="text" v-model="billing.address_1">
+                    <input class="order-view__input" id="CVV" type="text" v-model="payment.cvv">
                   </div>
                 </div>
                 <div class="column -size-6">
                   <div class="order-view__field">
                     <label class="order-view__label" for="expiration">Date d'expiration</label>
-                    <input class="order-view__input" id="expiration" type="text" v-model="billing.address_2">
+                    <input class="order-view__input" id="expiration" type="text" v-model="payment.date">
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@
               <Loader v-if="loading" />
               <div v-else class="order-view__buttons">
                 <MyButton @click="step--">Retour</MyButton>
-                <MyButton @click="confirmInformation">Valider ma commande</MyButton>
+                <MyButton @click="testPayment">Valider ma commande</MyButton>
               </div>
               <p v-if="feedback.message" :class="['order-view__feedback', `-is-type-${feedback.type}`]">
                 {{ feedback.message }}
@@ -222,7 +222,7 @@ export default {
     return {
       otherAddress: false,
       loading: false,
-      step: 1,
+      step: 2,
       validation: {
         email: true
       },
@@ -249,11 +249,21 @@ export default {
         state: '',
         postcode: '',
         country: '',
+      },
+      payment: {
+        number: '',
+        cvv: '',
+        date: ''
       }
     }
   },
 
   methods: {
+    testPayment () {
+
+    },
+
+
     async confirmInformation () {
       this.loading = true
       this.feedback = { type: null, message: null }
