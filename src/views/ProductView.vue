@@ -9,6 +9,10 @@
           <h1 class="product-view__name">{{ product.name }}</h1>
           <span class="product-view__sku">{{ product.sku }}</span>
           <p class="product-view__price">{{ product.price }}€</p>
+          <div v-if="colorAttribute" class="product-view__attribute">
+            <div v-for="(option, index) in colorAttribute.options" class="product-view__option" @click="">{{ option }}</div>
+          </div>
+          activeColor : {{ activeColor }}
           <div class="product-view__description">
             <div v-if="product.dimensions" class="product-view__dimensions">
               <p class="product-view__subtitle">Dimensions du produit :</p>
@@ -47,7 +51,15 @@ export default {
   data () {
     return {
       product: {},
+      variations: [],
+      activeColor: null,
       quantity: 1
+    }
+  },
+
+  computed: {
+    colorAttribute () {
+      return this.product.attributes.find(attribute => attribute.name === 'Couleur')
     }
   },
 
@@ -64,8 +76,17 @@ export default {
     async getProductData (slug) {
       const response = await client.get('/wc/v3/products?slug=' + slug)
       this.product = response.data[0]
+      if (this.product.type === 'variable') {
+        // Loop through all variation ids
+        for await (const id of this.product.variations) {
+          const response = await client.get('/wc/v3/products/' + id)
+          this.variations.push(response.data)
+        }
+        console.log(this.variations);
+      }
     },
 
+    // Add product to cart
     addToCart () {
       this.$store.commit('add', { product: this.product, quantity: this.quantity })
     },
