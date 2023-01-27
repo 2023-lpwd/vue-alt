@@ -96,7 +96,7 @@ export default {
 
     // Add product to cart
     addToCart () {
-      this.$store.commit('add', { product: this.product, quantity: this.quantity })
+      this.$store.commit('add', { product: this.displayedProduct, quantity: this.quantity })
     },
 
     // Update wanted quantity before adding product to cart
