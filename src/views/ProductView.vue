@@ -2,9 +2,6 @@
   <div class="product-view">
     <div class="container">
       <div class="row">
-        <pre>
-          {{ variations }}
-        </pre>
         <div class="product-view__gallery | column -size-6">
           <ProductGallery :images="displayedProduct.images" />
         </div>
@@ -15,7 +12,6 @@
           <div v-if="colorAttribute" class="product-view__attribute">
             <div v-for="(option, index) in colorAttribute.options" class="product-view__option" @click="changeColor(option)">{{ option }}</div>
           </div>
-          activeColor : {{ activeColor }}
           <div class="product-view__description">
             <div v-if="displayedProduct.dimensions" class="product-view__dimensions">
               <p class="product-view__subtitle">Dimensions du produit :</p>
@@ -67,11 +63,11 @@ export default {
     },
     displayedProduct () {
       if (!this.activeColor) return this.product
+      // Filter variations array to find if there's a match with selected attributes (color)
       const [variation] = this.variations.filter((variation) => {
-        // Retourner si variation.attributes contient une clé "option" qui a la valeur de activeColor
         return variation.attributes.find(attribute => attribute.option === this.activeColor)
       })
-      return variation || {}
+      return variation || this.product
     }
   },
 
