@@ -2,28 +2,31 @@
   <div class="product-view">
     <div class="container">
       <div class="row">
+        <pre>
+          {{ variations }}
+        </pre>
         <div class="product-view__gallery | column -size-6">
-          <ProductGallery :images="product.images" />
+          <ProductGallery :images="displayedProduct.images" />
         </div>
         <div class="product-view__content | column -size-6">
-          <h1 class="product-view__name">{{ product.name }}</h1>
-          <span class="product-view__sku">{{ product.sku }}</span>
-          <p class="product-view__price">{{ product.price }}€</p>
+          <h1 class="product-view__name">{{ displayedProduct.name }}</h1>
+          <span class="product-view__sku">{{ displayedProduct.sku }}</span>
+          <p class="product-view__price">{{ displayedProduct.price }}€</p>
           <div v-if="colorAttribute" class="product-view__attribute">
-            <div v-for="(option, index) in colorAttribute.options" class="product-view__option" @click="">{{ option }}</div>
+            <div v-for="(option, index) in colorAttribute.options" class="product-view__option" @click="changeColor(option)">{{ option }}</div>
           </div>
           activeColor : {{ activeColor }}
           <div class="product-view__description">
-            <div v-if="product.dimensions" class="product-view__dimensions">
+            <div v-if="displayedProduct.dimensions" class="product-view__dimensions">
               <p class="product-view__subtitle">Dimensions du produit :</p>
               <ul>
-                <li class="product-view__dimensions-item">Longueur : {{ product.dimensions.length }}cm</li>
-                <li class="product-view__dimensions-item">Largeur : {{ product.dimensions.width }}cm</li>
-                <li class="product-view__dimensions-item">Hauteur : {{ product.dimensions.height }}cm</li>
+                <li class="product-view__dimensions-item">Longueur : {{ displayedProduct.dimensions.length }}cm</li>
+                <li class="product-view__dimensions-item">Largeur : {{ displayedProduct.dimensions.width }}cm</li>
+                <li class="product-view__dimensions-item">Hauteur : {{ displayedProduct.dimensions.height }}cm</li>
               </ul>
             </div>
             <p class="product-view__subtitle">Description du produit :</p>
-            <div class="product-view__description-content" v-html="product.short_description" />
+            <div class="product-view__description-content" v-html="displayedProduct.short_description" />
           </div>
           <div class="product-view__actions">
             <div class="product-view__add-to-cart" @click="addToCart">
@@ -59,7 +62,15 @@ export default {
 
   computed: {
     colorAttribute () {
+      if (!this.product.attributes) return
       return this.product.attributes.find(attribute => attribute.name === 'Couleur')
+    },
+    displayedProduct () {
+      if (!this.activeColor) return this.product
+      return this.variations.filter((variation) => {
+        // Retourner si variation.attributes contient une clé "option" qui a la valeur de activeColor
+        //
+      })
     }
   },
 
@@ -91,12 +102,18 @@ export default {
       this.$store.commit('add', { product: this.product, quantity: this.quantity })
     },
 
+    // Update wanted quantity before adding product to cart
     updateQuantity (action) {
       if (action === 'increase') {
         this.quantity++
       } else if (action === 'decrease' && this.quantity > 1) {
         this.quantity--
       }
+    },
+
+    // Update activeColor value
+    changeColor (color) {
+      this.activeColor = color
     }
   }
 };
