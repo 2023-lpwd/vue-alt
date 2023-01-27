@@ -67,10 +67,11 @@ export default {
     },
     displayedProduct () {
       if (!this.activeColor) return this.product
-      return this.variations.filter((variation) => {
+      const [variation] = this.variations.filter((variation) => {
         // Retourner si variation.attributes contient une clé "option" qui a la valeur de activeColor
-        //
+        return variation.attributes.find(attribute => attribute.option === this.activeColor)
       })
+      return variation || {}
     }
   },
 
